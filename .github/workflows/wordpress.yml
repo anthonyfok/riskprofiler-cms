@@ -29,8 +29,8 @@ jobs:
           --health-retries 10
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      #- name: Checkout code
+      #  uses: actions/checkout@v2
 
       - name: Explore
         run: |
@@ -43,4 +43,7 @@ jobs:
       - run: which wp-cli || true
       - run: wp-cli --version || true
       - run: php --version || true
+      - run: pwd
+      - run: echo $HOME
+
 
