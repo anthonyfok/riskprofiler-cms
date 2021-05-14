@@ -9,28 +9,37 @@ on:
     - main
 
 jobs:
-  #container-job:
-  #  runs-on: ubuntu-20.04
-
-  #container:
-  #  image: wordpress:cli
-
-  #services:
-  #  mysql:
-  #    image: mysql:5.7
-
-  try-host-mysql:
+  container-job:
     runs-on: ubuntu-20.04
+    container:
+      image: wordpress:cli
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: my-secret-pw
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysql health ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-      - name: Start MySQL server
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Explore
         run: |
-          sudo systemctl status mysql.service || :
-          sudo systemctl start mysql.service
-          #echo -e "[client]\nuser=root\npassword=root" > ~/.my.cnf
-          #chmod 0600 ~/.my.cnf
-          echo root | mysql_config_editor set --login-path=client --host=localhost --user=root --password
-          mysql_config_editor print --all
+          echo -e "[client]\nuser=root\npassword=root" > ~/.my.cnf
+          chmod 0600 ~/.my.cnf
+          #echo root | mysql_config_editor set --login-path=client --host=localhost --user=root --password
+          #mysql_config_editor print --all
 
       - run: mysql -e "SHOW DATABASES; CREATE DATABASE opendrr; SHOW DATABASES;" || true
+      - run: which wp-cli || true
+      - run: wp-cli --version || true
+      - run: php --version || true
 
