@@ -34,10 +34,17 @@ jobs:
 
       - name: Explore
         run: |
-          #echo -e "[client]\nuser=root\npassword=root" > ~/.my.cnf
-          #chmod 0600 ~/.my.cnf
-          #echo root | mysql_config_editor set --login-path=client --host=localhost --user=root --password
-          #mysql_config_editor print --all
+          # Workaround https://github.com/actions/runner/issues/863
+          sudo mkdir -p /github
+          sudo ln -s /root /github/home
+
+          ls -l
+          ls -l $HOME
+
+          echo -e "[client]\nuser=root\npassword=root" > ~/.my.cnf || :
+          chmod 0600 ~/.my.cnf || :
+          echo root | mysql_config_editor set --login-path=client --host=localhost --user=root --password || :
+          mysql_config_editor print --all || :
 
       - run: mysql -e "SHOW DATABASES; CREATE DATABASE opendrr; SHOW DATABASES;" || true
       - run: which wp-cli || true
