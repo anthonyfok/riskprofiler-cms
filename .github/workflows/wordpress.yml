@@ -34,8 +34,8 @@ jobs:
 
       - name: Explore
         run: |
-          echo -e "[client]\nuser=root\npassword=root" > ~/.my.cnf
-          chmod 0600 ~/.my.cnf
+          #echo -e "[client]\nuser=root\npassword=root" > ~/.my.cnf
+          #chmod 0600 ~/.my.cnf
           #echo root | mysql_config_editor set --login-path=client --host=localhost --user=root --password
           #mysql_config_editor print --all
 
