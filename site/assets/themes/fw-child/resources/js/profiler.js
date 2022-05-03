@@ -121,7 +121,7 @@
 			$('.app-sidebar-content').fadeOut(125, function() {
 
 				$.ajax({
-					url: '/site/assets/themes/fw-child/template/' + settings.url,
+					url: '../site/assets/themes/fw-child/template/' + settings.url,
 					method: settings.method,
 					data: settings.data,
 					success: function(data) {
@@ -167,21 +167,21 @@
 			// bar
 
 			$.ajax({
-				url: '/site/assets/themes/fw-child/template/' + settings.dir + '/control-bar.php',
+				url: '../site/assets/themes/fw-child/template/' + settings.dir + '/control-bar.php',
 				success: function(bar_data) {
 					$('.app-controls-content').html(bar_data)
 
 					// filter
 
 					$.ajax({
-						url: '/site/assets/themes/fw-child/template/' + settings.dir + '/control-filter.php',
+						url: '../site/assets/themes/fw-child/template/' + settings.dir + '/control-filter.php',
 						success: function(filter_data) {
 							$('.app-sidebar-filter').html(filter_data)
 
 							// sort
 
 							$.ajax({
-								url: '/site/assets/themes/fw-child/template/' + settings.dir + '/control-sort.php',
+								url: '../site/assets/themes/fw-child/template/' + settings.dir + '/control-sort.php',
 								success: function(sort_data) {
 									$('.app-sidebar-sort').html(sort_data)
 
